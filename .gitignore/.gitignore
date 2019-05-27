@@ -3,3 +3,4 @@ outfile
 par
 seq
 *.out
+*.o
