@@ -157,10 +157,7 @@ int main(int argc, char* argv[]) {
     double endTime = MPI_Wtime();
 
     if(taskId == MASTER){
-        printf("The computation took %f seconds\nOpen the file \"outfile\" to see the result matrix\n", endTime - startTime);
+        printf("The computation took %.2f seconds\nOpen the file \"outfile\" to see the result matrix\n", endTime - startTime);
     }
     return 0;
 }
-
-
-

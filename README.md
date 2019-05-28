@@ -54,5 +54,5 @@ Add additional notes about how to deploy this on a live system
 
 ## Authors
 
-* **Francesco Califano** - *Implementation work* - [MatrixMultiplication](https://github.com/FranCali/MatrixMultiplication)
+* **Francesco Califano** - *Full Design and Implementation work* - [MatrixMultiplication](https://github.com/FranCali/MatrixMultiplication)
 

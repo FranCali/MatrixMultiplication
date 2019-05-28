@@ -1,4 +1,3 @@
-//Sequential version of matrix multiplication algorithm
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
@@ -11,8 +10,8 @@
 
 int main(int argc, char* argv[]){
 
-    time_t startTime,endTime;
-    time(&startTime);
+    clock_t startTime,endTime;
+    startTime = clock();
     srand((unsigned) time(NULL));
     FILE* inFile = fopen(FILE_NAME, "r");
 
@@ -41,7 +40,7 @@ int main(int argc, char* argv[]){
     free(matrixA);
     free(matrixB);
     
-    time(&endTime);
-    printf("The computation took %ld seconds\nOpen file \"outfile\" to see the result matrix\n", endTime-startTime);
+    endTime = clock();
+    printf("The computation took %.2lf seconds\nOpen file \"outfile\" to see the result matrix\n", (double) (endTime-startTime)/CLOCKS_PER_SEC);
     return 0;
 }
