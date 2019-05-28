@@ -5,4 +5,4 @@ seq
 *.out
 *.o
 bin/
-.vscode
+.vscode/
