@@ -4,3 +4,5 @@ par
 seq
 *.out
 *.o
+bin/
+.vscode
