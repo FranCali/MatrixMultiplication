@@ -4,7 +4,7 @@
 #include "matrixOps.h"
 #include <limits.h>
 
-#define MAX_RAND INT_MAX
+#define MAX_RAND 256
 #define FILE_NAME "infile"
 
 int main(int argc, char* argv[]){
@@ -15,10 +15,10 @@ int main(int argc, char* argv[]){
         exit(EXIT_FAILURE);
     }
 
-    const int rowsA= atoi(argv[1]);//Number of rows matrix a
-    const int colsA= atoi(argv[2]);//Number of columns matrix a
-    const int rowsB= atoi(argv[3]);//Number of rows matrix b
-    const int colsB= atoi(argv[4]);//Number of columns matrix b
+    const int rowsA = atoi(argv[1]);//Number of rows matrix a
+    const int colsA = atoi(argv[2]);//Number of columns matrix a
+    const int rowsB = atoi(argv[3]);//Number of rows matrix b
+    const int colsB = atoi(argv[4]);//Number of columns matrix b
 
     printf("Writing two matrices on file \"%s\"...\n", FILE_NAME);
     printf("Matrix A: %d rows %d columns\n", rowsA, colsA);

@@ -26,7 +26,7 @@ int main(int argc, char* argv[]){
     int **matrixB = readMatrixFromFile(inFile, rowsB, colsB);
     fclose(inFile);
 
-    long int **prodMatrix = multiplyMatrices(matrixA, matrixB, rowsA, colsA, rowsB, colsB);
+    int **prodMatrix = multiplyMatrices(matrixA, matrixB, rowsA, colsA, rowsB, colsB);
 
     if(prodMatrix==NULL)    /*Product was not appliable on that matrices*/
         exit(EXIT_FAILURE);

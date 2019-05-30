@@ -22,6 +22,12 @@ int main(int argc, char* argv[]) {
     MPI_Comm_rank(MPI_COMM_WORLD, &taskId);
     MPI_Status status;
 
+    if(tasksNum == 1){
+        printf("You are using 1 processor, execute the sequential version with file \"seq\"\n");
+        exit(EXIT_FAILURE);
+    }
+
+
     FILE *inFile = fopen(FILE_NAME, "r");
 
     if(inFile == NULL){
@@ -122,8 +128,8 @@ int main(int argc, char* argv[]) {
             fscanf(inFile, " %d", &matrixB[i][j]);   
     }
 
-    long int *sendBuf = multiplyMatricesretVect(partMatrixA, matrixB, rows, colsA, rowsB, colsB, offset, elements);   /*Buffer used to store computed values to send to MASTER*/ 
-    long int *recvGatBuf = malloc(sizeof(long int) * elements * tasksNum);
+    int *sendBuf = multiplyMatricesretVect(partMatrixA, matrixB, rows, colsA, rowsB, colsB, offset, elements);   /*Buffer used to store computed values to send to MASTER*/ 
+    int *recvGatBuf = malloc(sizeof(int) * elements * tasksNum);
     int recvCounts[tasksNum];
     int displs[tasksNum];
     displs[0] = 0;
@@ -133,13 +139,13 @@ int main(int argc, char* argv[]) {
         displs[taskRank+1] = displs[taskRank] + recvCounts[taskRank]; 
     }
 
-    MPI_Gatherv(sendBuf, elements, MPI_LONG, recvGatBuf, recvCounts, displs, MPI_LONG, MASTER, MPI_COMM_WORLD);
+    MPI_Gatherv(sendBuf, elements, MPI_INT, recvGatBuf, recvCounts, displs, MPI_INT, MASTER, MPI_COMM_WORLD);
 
     if(taskId == MASTER){
         FILE *outFile = fopen("outfile", "w+");
         fprintf(outFile, "%d %d\n", rowsA, colsB);
         for(int i = 0; i < rowsA * colsB; i++){
-            fprintf(outFile, "%ld ", recvGatBuf[i]);
+            fprintf(outFile, "%d ", recvGatBuf[i]);
             if((i + 1) % colsB == 0)
                 fprintf(outFile, "\n");
         }
