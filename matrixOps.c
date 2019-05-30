@@ -1,10 +1,10 @@
 #include "matrixOps.h"
 
-void writeMatrixOnFile(FILE* file, int** matrix, int rows, int cols){
+void writeMatrixOnFile(FILE* file, long int** matrix, int rows, int cols){
     fprintf(file, "%d %d\n", rows, cols);
     for(int i = 0; i < rows; i++){
         for(int j=0; j < cols; j++){
-            fprintf(file, "%d ", matrix[i][j]);
+            fprintf(file, "%ld ", matrix[i][j]);
         }
         fprintf(file, "\n");
     }
@@ -40,6 +40,16 @@ int** allocateMatrix(int rows, int cols){
     return matrix;
 };
 
+long int** allocateLongMatrix(int rows, int cols){
+
+    long int** matrix = malloc(rows * sizeof *matrix);
+    
+    for(int i = 0; i < rows; i++){
+        *(matrix + i) = malloc(cols * sizeof *matrix[i]);
+    }
+    return matrix;
+};
+
 void initializeRandMatrix(int** matrix, int rows, int cols, int maxRand){
     for(int row = 0; row < rows; row++){
         for(int col = 0; col < cols; col++){
@@ -65,23 +75,24 @@ void printMatrix(int** matrix, int rows, int cols){
     }
 }
 
-int** multiplyMatrices(int** matrixA, int** matrixB, int rowsA, int colsA, int rowsB, int colsB){
+long int** multiplyMatrices(int** matrixA, int** matrixB, int rowsA, int colsA, int rowsB, int colsB){
     if(colsA!=rowsB){
         printf("Product not appliable on these matrixes, please be sure that matrixes are of the form A:mxn B:nxl\n");
         return NULL;
     }
-    int** prod_matrix = allocateMatrix(rowsA, colsB);
-    int product = 0;
+    long int** prod_matrix = allocateLongMatrix(rowsA, colsB);
+    long int product = 0;
 
     for(int row_a = 0; row_a < rowsA; row_a++){
         for(int col_a = 0, col_b = 0; col_b < colsB; col_a++){
             
-            product += (matrixA[row_a][col_a] * matrixB[col_a][col_b]); 
-
+            product += ((long)matrixA[row_a][col_a] * (long) matrixB[col_a][col_b]); 
+            
             if(((col_a + 1) == colsA)){
                 prod_matrix[row_a][col_b] = product;
                 col_a = -1;
                 col_b++;
+                printf("%ld\n", product);
                 product = 0;
             }  
         }
@@ -89,13 +100,13 @@ int** multiplyMatrices(int** matrixA, int** matrixB, int rowsA, int colsA, int r
     return prod_matrix;
 }
 
-int* multiplyMatricesretVect(int** matrixA, int** matrixB, int rowsA, int colsA, int rowsB, int colsB, int offset,int elements){
+long int* multiplyMatricesretVect(int** matrixA, int** matrixB, int rowsA, int colsA, int rowsB, int colsB, int offset,int elements){
     if(colsA!=rowsB){
         printf("Product not appliable on these matrixes, please be sure that matrixes are of the form A:mxn B:nxl\n");
         return NULL;
     }
-    int* prod_matrix = malloc(sizeof(int) * elements);
-    int product = 0;
+    long int* prod_matrix = malloc(sizeof(long int) * elements);
+    long int product = 0;
     int col_b;
     int count = 0;
 
@@ -107,7 +118,7 @@ int* multiplyMatricesretVect(int** matrixA, int** matrixB, int rowsA, int colsA,
         
         for(int col_a = 0; col_b < colsB; col_a++){
             
-            product += (matrixA[row_a][col_a] * matrixB[col_a][col_b]); 
+            product += ((long) matrixA[row_a][col_a] * (long) matrixB[col_a][col_b]); 
 
             if(((col_a + 1) == colsA)){
                 prod_matrix[count++] = product;
@@ -124,8 +135,6 @@ int* multiplyMatricesretVect(int** matrixA, int** matrixB, int rowsA, int colsA,
     }
     return prod_matrix;
 }
-
-
 
 int* multiplyVectMatrix(int* vector_a, int** matrixB, int colsA, int rowsB, int colsB){
     int* prod_vector = malloc(sizeof(int) * colsB);

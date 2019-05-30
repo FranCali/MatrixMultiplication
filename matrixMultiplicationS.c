@@ -7,7 +7,6 @@
 #define FILE_NAME "infile"
 #define MAX_RAND 5
 
-
 int main(int argc, char* argv[]){
 
     clock_t startTime,endTime;
@@ -27,7 +26,7 @@ int main(int argc, char* argv[]){
     int **matrixB = readMatrixFromFile(inFile, rowsB, colsB);
     fclose(inFile);
 
-    int **prodMatrix = multiplyMatrices(matrixA, matrixB, rowsA, colsA, rowsB, colsB);
+    long int **prodMatrix = multiplyMatrices(matrixA, matrixB, rowsA, colsA, rowsB, colsB);
 
     if(prodMatrix==NULL)    /*Product was not appliable on that matrices*/
         exit(EXIT_FAILURE);

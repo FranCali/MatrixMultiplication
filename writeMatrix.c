@@ -2,8 +2,9 @@
 #include <stdlib.h>
 #include <time.h>
 #include "matrixOps.h"
+#include <limits.h>
 
-#define MAX_RAND 50
+#define MAX_RAND INT_MAX
 #define FILE_NAME "infile"
 
 int main(int argc, char* argv[]){
