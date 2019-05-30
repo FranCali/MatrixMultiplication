@@ -92,7 +92,6 @@ long int** multiplyMatrices(int** matrixA, int** matrixB, int rowsA, int colsA, 
                 prod_matrix[row_a][col_b] = product;
                 col_a = -1;
                 col_b++;
-                printf("%ld\n", product);
                 product = 0;
             }  
         }
