@@ -4,7 +4,7 @@ read numInstances
 
 echo "SCP started..."
 
-cut -d' ' -f1 hfile | while read line 
+cut -d' ' -f1 hfile | while read ip 
 do
     scp -r bin pcpc@$ip:~
 done

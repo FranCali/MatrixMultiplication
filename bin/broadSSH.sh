@@ -1,13 +1,13 @@
 #!/bin/bash
-echo "How many instances?"
-read numInstances
-echo "Enter the key file name: "
-read keyfile
 
-for ((i=0; i<$numInstances; i++))
+echo "SSH broadcast started..."
+
+read ip #Jump the first row localhost
+cut -d' ' -f1 hfile | while read ip 
 do
-    read ip
-    ssh -i "$keyfile" pcpc@$ip
-    sleep 2
+    ssh pcpc@$ip
+    sleep 3
     exit
 done
+
+echo "SSH broadcast terminated"
