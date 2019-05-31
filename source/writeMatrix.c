@@ -3,8 +3,14 @@
 #include <time.h>
 #include "matrixOps.h"
 #include <limits.h>
+#include <dirent.h>
+#include <errno.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 #define MAX_RAND 256
+#define DIR_NAME "test"
 #define FILE_NAME "infile"
 
 int main(int argc, char* argv[]){
@@ -24,7 +30,16 @@ int main(int argc, char* argv[]){
     printf("Matrix A: %d rows %d columns\n", rowsA, colsA);
     printf("Matrix B: %d rows %d columns\n", rowsB, colsB);
 
+   
     char pathname[50];
+    sprintf(pathname, "../%s", DIR_NAME);
+
+    struct stat st = {0};
+
+    if(stat("/some/directory", &st) == -1){//Create the test directory if not exists
+        mkdir(pathname, 0700);
+    }
+    
     sprintf(pathname, "../test/%s", FILE_NAME);
     FILE* file = fopen(pathname, "w");
 

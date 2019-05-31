@@ -1,11 +1,10 @@
-infile
-outfile
 par
 seq
 writeMatrix
+hfile
 *.out
 *.o
 .vscode/
+test/
 testCases.txt
-hfile
 matrixMultRand.c
