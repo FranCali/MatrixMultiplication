@@ -4,7 +4,6 @@ par
 seq
 *.out
 *.o
-bin/
 .vscode/
 testCases.txt
 hfile
