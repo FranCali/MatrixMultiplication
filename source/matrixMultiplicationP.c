@@ -60,36 +60,38 @@ int main(int argc, char* argv[]) {
         int taskRank = 0;                   /*Current task rank*/     
         int colBOffset = 0;                 /*Offset from column 0 of matrix B*/
         int rowsCount = 0; 
-        int *indexbuf = malloc(SIZE);
+        int *indexBuf = malloc(SIZE);
         int index = 0;
 
         taskElements = (taskRank < reminder) ? portion + 1 : portion;
             
         for(int row = 0; row < rowsA; row++){
             rowsCount++;
-            indexbuf[index++] = row;
+            
+            (taskRank == 0) ? (recvBuf[index++] = row) : (indexBuf[index++] = row);
 
             for(int col = 0; col < colsB; col++){
                 elements++;
                 
                 if(elements == taskElements){
 
-                    (taskRank == 0) ? rows = rowsCount : MPI_Ssend(&rowsCount, 1, MPI_INT, taskRank, 0, MPI_COMM_WORLD);
-                    
-                    indexbuf[rowsCount] = colBOffset; indexbuf[rowsCount + 1] = elements;
-                    
                     if(taskRank == 0){
-                       for(int i = 0; i < rowsCount + 2; i++)
-                            recvBuf[i] = indexbuf[i];
-                    }else{
-                        MPI_Ssend(indexbuf, rowsCount + 2, MPI_INT, taskRank, 0, MPI_COMM_WORLD);
+                        rows = rowsCount;
+                        recvBuf[rowsCount] = colBOffset;
+                        recvBuf[rowsCount + 1] = elements;
+                    } 
+                    else{
+                        MPI_Ssend(&rowsCount, 1, MPI_INT, taskRank, 0, MPI_COMM_WORLD);
+                        indexBuf[rowsCount] = colBOffset; 
+                        indexBuf[rowsCount + 1] = elements;
+                        MPI_Ssend(indexBuf, rowsCount + 2, MPI_INT, taskRank, 0, MPI_COMM_WORLD);
                     }
-
+                    
                     colBOffset = (colBOffset  + elements) % colsB;
                     index = 0;
 
                     if(col < colsB - 1){        /*Save row index for next task before moving on with row++*/
-                        indexbuf[index++] = row;
+                        indexBuf[index++] = row;
                         rowsCount = 1;
                     }  
                     else
@@ -98,13 +100,11 @@ int main(int argc, char* argv[]) {
                     elements = 0;
                     taskRank++;
 
-                    taskElements = (taskRank < reminder) ? portion + 1 : portion;
-                    
+                    taskElements = (taskRank < reminder) ? portion + 1 : portion;             
                 }
-            }
-            
+            }  
         }
-        free(indexbuf);
+        free(indexBuf);
     }else{
         MPI_Recv(&rows, 1, MPI_INT, MASTER, 0, MPI_COMM_WORLD, &status);
         MPI_Recv(recvBuf, rows + 2, MPI_INT, MASTER, 0, MPI_COMM_WORLD, &status);   
