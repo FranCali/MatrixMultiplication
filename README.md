@@ -1,20 +1,34 @@
-The student must describe the solution and the benchmark in a README file, written in Markdown, and included in the submission. The README file must describe also the compilation phase and how to reproduce the results obtained.
 # MatrixMultiplication
-This repositories contains both the sequential and parallel version of the matrix multiplication algorithm. 
-The algorithms are written in C language and the parallel version has been coded using the OpenMPI library.
-The project has been developed with the aim of presenting the benefits of parallel programming by testing the algorithm with both strong and weak scalability.
+The project contains both the sequential and parallel version of the matrix multiplication algorithm.<br>
+The aim of this work is to compare both the parallel and the sequential algorithms for matrix multiplication and explain, using parallel computing parameters, the difference in performance and the benefits (if any) of the parallel solution.<br>
+The algorithms are both written in C programming language. 
+The parallel algorithm has been coded using the OpenMPI library.
 
-The parallel solution was tested on an AWS cluster of 8 M4.xlarge instances 
+## Methodology
+The test were performed on an omogeneous AWS cluster composed by 8 [m4.xlarge](https://aws.amazon.com/ec2/instance-types/) instances.<br>
+In order to test the performance of the parallel algorithm, two parameters were considered: [strong scalability](#strong-scalability) and [weak scalability](#weak-scalability).<br>
+Furthermore, the speedup of the parallel solution was computed in order to relate the parallel and the sequential solutions.
 
+### Project structure
+* source/
+    * matrixMultiplicationS.c  -> *Sequential algorithm*
+    * matrixMultiplicationP.c  -> *Parallel algorithm*
+    * matrixOps.c -> *Matrix operations for creation, write and read*
+    * matrixOps.h -> *Header file to include in source codes*
+    * writeMatrix.c -> *Input file generator*
 
 
 ## Getting Started
 
-Clone the repository to have all the files needed for the execution.
+
+```
+Give examples
+```
 
 ## Strong scalability
 
-Keeping the problem size fixed and pushing in more workers or processors. Goal: Minimize time to solution for a given problem.
+Keeping the problem size fixed and pushing in more workers or processors. Goal: Minimize time to solution for a given problem.<br>
+For the strong scalability, 10 tests were executed and than the final result as shown in figure 1 is the average value for each cpu number, from 1 (sequential algorithm) to 18 (that is the number of cpus times number of cores per AWS instance).<br>
 
 If the amount of time to complete a work unit with 1 processing element is t1, and the amount of time to complete the same unit of work with N processing elements is tN, the strong scaling efficiency (as a percentage of linear) is given as: 
 t1 / ( N * tN ) * 100%
@@ -24,47 +38,16 @@ t1 / ( N * tN ) * 100%
 Keeping the work per worker fixed and adding more workers/processors (the overall problem size increases). Goal: solve the larger problems.
 To each processor is assigned the multiplication of two matrices with one thousand rows and one thousand columns.
 
-### Prerequisites
-
-Install OpenMPI with the following command: 
-
-```
-Give examples
-```
-
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
 * [OpenMPI](https://www.open-mpi.org) - The C library used
 
 
-## Authors
+## Author
 
-* **Francesco Califano** - *Full Design and Implementation work* - [MatrixMultiplication](https://github.com/FranCali/MatrixMultiplication)
+* **Francesco Califano** - *Solution Design, implementation, testing and results presentation*  
 
 ## Credits
 
 * *Measuring Parallel Scaling Performance* - [sharcnet](https://www.sharcnet.ca/help/index.php/Measuring_Parallel_Scaling_Performance)
-* **Carmine Spagnuolo** - *Ubuntu with OpenMPI and OpenMP* - [https://github.com/spagnuolocarmine/ubuntu-openmpi-openmp]
