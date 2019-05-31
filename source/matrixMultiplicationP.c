@@ -4,7 +4,8 @@
 #include "mpi.h"
 #include "matrixOps.h"
 
-#define FILE_NAME "infile"
+#define FILE_IN_NAME "infile"
+#define FILE_OUT_NAME "outfile"
 #define MASTER 0
 #define SIZE (sizeof(int) * rowsA) + (2 * sizeof(int))
 
@@ -27,8 +28,9 @@ int main(int argc, char* argv[]) {
         exit(EXIT_FAILURE);
     }
 
-
-    FILE *inFile = fopen(FILE_NAME, "r");
+    char pathname[50];
+    sprintf(pathname, "../test/%s", FILE_IN_NAME);
+    FILE *inFile = fopen(pathname, "r");
 
     if(inFile == NULL){
         printf("Error opening the file\n");
@@ -142,7 +144,8 @@ int main(int argc, char* argv[]) {
     MPI_Gatherv(sendBuf, elements, MPI_INT, recvGatBuf, recvCounts, displs, MPI_INT, MASTER, MPI_COMM_WORLD);
 
     if(taskId == MASTER){
-        FILE *outFile = fopen("outfile", "w+");
+        sprintf(pathname, "../test/%s", FILE_OUT_NAME);
+        FILE *outFile = fopen(pathname, "w+");
         fprintf(outFile, "%d %d\n", rowsA, colsB);
         for(int i = 0; i < rowsA * colsB; i++){
             fprintf(outFile, "%d ", recvGatBuf[i]);
@@ -163,7 +166,7 @@ int main(int argc, char* argv[]) {
     double endTime = MPI_Wtime();
 
     if(taskId == MASTER){
-        printf("The computation took %.2f seconds\nOpen the file \"outfile\" to see the result matrix\n", endTime - startTime);
+        printf("The computation took %.2f seconds\nOpen the file \"outfile\" in test folder to see the result matrix\n", endTime - startTime);
     }
     return 0;
 }

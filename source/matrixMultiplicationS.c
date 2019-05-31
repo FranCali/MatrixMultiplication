@@ -4,7 +4,8 @@
 #include <time.h>
 #include "matrixOps.h"
 
-#define FILE_NAME "infile"
+#define FILE_IN_NAME "infile"
+#define FILE_OUT_NAME "outfile"
 #define MAX_RAND 5
 
 int main(int argc, char* argv[]){
@@ -12,10 +13,12 @@ int main(int argc, char* argv[]){
     clock_t startTime,endTime;
     startTime = clock();
     srand((unsigned) time(NULL));
-    FILE* inFile = fopen(FILE_NAME, "r");
+    char pathname[50];
+    sprintf(pathname, "../test/%s", FILE_IN_NAME);
+    FILE* inFile = fopen(pathname, "r");
 
     if(inFile == NULL){
-        printf("Error opening the file \"%s\"\n", FILE_NAME);
+        printf("Error opening the file \"%s\"\n", FILE_IN_NAME);
         exit(EXIT_FAILURE);
     }
 
@@ -31,7 +34,8 @@ int main(int argc, char* argv[]){
     if(prodMatrix==NULL)    /*Product was not appliable on that matrices*/
         exit(EXIT_FAILURE);
     
-    FILE *outFile = fopen("outfile", "w");
+    sprintf(pathname, "../test/%s", FILE_OUT_NAME);
+    FILE *outFile = fopen(pathname, "w");
     writeMatrixOnFile(outFile, prodMatrix, rowsA, colsB);
     fclose(outFile);
 
@@ -40,6 +44,6 @@ int main(int argc, char* argv[]){
     free(matrixB);
     
     endTime = clock();
-    printf("The computation took %.2lf seconds\nOpen file \"outfile\" to see the result matrix\n", (double) (endTime-startTime)/CLOCKS_PER_SEC);
+    printf("The computation took %.2lf seconds\nOpen file \"outfile\" in test folder to see the result matrix\n", (double) (endTime-startTime)/CLOCKS_PER_SEC);
     return 0;
 }

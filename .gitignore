@@ -2,6 +2,7 @@ infile
 outfile
 par
 seq
+writeMatrix
 *.out
 *.o
 .vscode/

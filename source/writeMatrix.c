@@ -24,7 +24,9 @@ int main(int argc, char* argv[]){
     printf("Matrix A: %d rows %d columns\n", rowsA, colsA);
     printf("Matrix B: %d rows %d columns\n", rowsB, colsB);
 
-    FILE* file = fopen(FILE_NAME, "w");
+    char pathname[50];
+    sprintf(pathname, "../test/%s", FILE_NAME);
+    FILE* file = fopen(pathname, "w");
 
     if(file == NULL){
         perror("Error opening the file");
