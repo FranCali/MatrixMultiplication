@@ -1,6 +1,4 @@
-par
-seq
-writeMatrix
+bin/
 hfile
 *.out
 *.o
