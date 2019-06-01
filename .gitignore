@@ -4,5 +4,4 @@ hfile
 *.o
 .vscode/
 test/
-testCases.txt
 matrixMultRand.c

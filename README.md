@@ -59,23 +59,27 @@ Pass the four parameters to generate matrices A and B of the desired size
     mpirun -np [number of cpus] --hostfile [hfile] par
     ```
 
-
 ## Methodology
 The tests were performed on an omogeneous AWS cluster composed by 8 [m4.xlarge](https://aws.amazon.com/ec2/instance-types/) instances.<br>
 In order to test the performance of the parallel algorithm, two parameters were considered: [strong scalability](#strong-scalability) and [weak scalability](#weak-scalability).<br>
-Furthermore, the speedup of the parallel solution was computed in order to relate the parallel and the sequential solutions.
-All test inputs and results are shown in [testCases](testCases.txt) file.
+Furthermore, the speedup of the parallel solution was computed.
+All test inputs and timings can be found in [testCases](testCases.txt).
+
+## Speedup
+
+### Results
+Relative speedup: S(p,n)=T(1,n)T(p,n)
 
 ## Strong scalability
 In this case the problem size stays fixed but the number of processing elements are increased.<br>
 Goal: Minimize time to solution for a given problem.<br>
 In strong scaling, a program is considered to scale linearly if the speedup(in terms of work units completed per unit time) is equal to the number ofprocessing elements used ( N ). In general, it is harder to achieve goodstrong-scaling at larger process counts since the communication overheadfor many/most algorithms increases in proportion to the number of processesused.<br>
-For the strong scalability, 10 tests were performed and than the final result as shown in figure 1 is the average value for each number of cpus, from 1 (sequential algorithm) to 16 (i.e. number of cores per instance times number of AWS instances).<br>
 
 If the amount of time to complete a work unit with 1 processing element is t1, and the amount of time to complete the same unit of work with N processing elements is tN, the strong scaling efficiency (as a percentage of linear) is given as: <p style="text-align: center;">**t1 / ( N * tN ) * 100%**</p>
 
-### Results
+For the strong scalability, 5 tests were performed with a different input for each test, finally the result as shown in figure 1 is the average value for each number of cpus, from 1 (sequential algorithm) to 16 (i.e. number of cores per instance times number of AWS instances).<br>
 
+### Results
 
 
 ## Weak scalability
@@ -84,6 +88,12 @@ In this case the problem size (workload) assigned to each processing element sta
 
 If the amount of time to complete a work unit with 1 processing element is t1, and the amount of time to complete N of the same work units with N processing elements is tN, the weak scaling efficiency (as a percentage of linear) is given as: <p style="text-align: center;">**( t1 / tN ) * 100%**</p>
 
+### Results
+
+
+### Coding decisions
+Here is the explanation of some coding design decisions made and the reasons why they were made:
+* The matrices values are in the range 0-255: the first choice was to allow matrices values to range from 0 to the max representable integer value INT_MAX. However, the multiplication and addition operations involved between matrices elements lead to both integer overflow and long overflow when input matrices' sizes increased within the test cases.
 
 
 ## Built With
