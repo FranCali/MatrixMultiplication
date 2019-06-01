@@ -1,5 +1,4 @@
 Benchmarking
-STRONG SCALING (5 tests)
 -----------------------------------
 1)Input A:2048 x 2048, B:2048 x 2048
 seq: 68.06 
