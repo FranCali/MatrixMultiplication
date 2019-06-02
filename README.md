@@ -125,7 +125,7 @@ If the amount of time to complete a work unit with 1 processing element is t1, a
 
 ![image](https://drive.google.com/uc?export=view&id=183GbtT0zwll_QKryHajML_HxAMD-oFJL)
 
-The plot clearly shows that the percentage of linear scaling efficiency is low, the maximum value is reached with 2 processing units and after it quickly decreases under 10% going even further until the last point which has a percentage near to zero. With the inputs tested, this algorithm shows a poor weak scaling efficiency.
+The plot clearly shows that the percentage of linear scaling efficiency is low, the maximum value is reached with 2 processing units and after that, it quickly decreases under 10% going even further until the last point which has a percentage near to zero. With the tested inputs, this algorithm shows a poor weak scaling efficiency.
 <br><br>
 
 
