@@ -87,11 +87,12 @@ The speedup is a measure that captures the relative benefit of solving a problem
 Given an input I of size n, the time of the sequential solution on input I is denoted as T(1,n) and the time of the parallel solution on input I is denoted as T(p,n)
 The relative speedup is **S(p,n)=T(1,n)/T(p,n)**
 <br>
-Biggest experiment in terms of processing units:
+Biggest experiment in terms of processing units and input size:
 <br>
-![image](https://drive.google.com/uc?export=view&id=10sAXXnWtxCvfdJP2t6AvoYTdr-oVCNa4)
 
-The results show how the best speedup rate is reached at 12 processors.
+![image](https://drive.google.com/uc?export=view&id=1n4-OIQvCUhPmdbIdRAPYfk3J_2XxJnPH)
+
+The results show how the best speedup rate is reached at 12 processors. The trend is an almost linear growing of the speedup, however it's clearly visible how the increasing number of processing elements affects the speedup because of the communication overhead between processors for work partitioning and partial results gathering. As the number of processors increases, it is further from the speedup upperbound which corresponds to the number of processors in that phase.
 <br><br>
 
 ### Strong scalability
@@ -102,30 +103,29 @@ In this case the problem size stays fixed but the number of processing elements 
 <br>
 
 1. Biggest experiment in terms of processing units:<br>
-![image](https://drive.google.com/uc?export=view&id=1sJhACQfKuRMDPP4MNwzZvQ29LWSwDlI2)
+![image](https://drive.google.com/uc?export=view&id=1cmp5LqDG5DXuW23fZtVDqtrRRTC9YA7a)
 
+This chart shows three strong scaling tests and their average values for each number of processing elements. The most significant improvement in terms of time to complete is with the biggest input size, this shows that the algorithm gains benefit with bigger inputs rather then inputs like the third test shown in the plot legend. In that case the time to complete has a slight decrease, not so significant to justify the adoption of more processing units though. Although is clearly visible the improve in time to complete with the increase of processing units, what the plot shows is that the more processors are used, the less the difference in time is remarkable. The plot shows how the function trend for all three tests and for the average values becomes almost the same from the use of 10 processing elements till the last tests with 16 elements. That said, the plot suggests, for the implemented solution, the use of at most 10 processing elements because the vantage after that is not remarkable.
 
 2. Strong scaling efficiency: <br>
 If the amount of time to complete a work unit with 1 processing element is t1, and the amount of time to complete the same unit of work with N processing elements is tN, the strong scaling efficiency (as a percentage of linear) is given as: **t1 / ( N * tN ) * 100%**
 
-The following chart is the result of the average operation performed over 6 strong scalability tests with 6 different inputs. Each test consists of testing the same input with different numbers of processing units, in this case from 1 to 16 <br>
+![image](https://drive.google.com/uc?export=view&id=1bsAtebFxPt5-fQUQ058N6CW3h1f9APRN)
 
-![image](https://drive.google.com/uc?export=view&id=1sJhACQfKuRMDPP4MNwzZvQ29LWSwDlI2)
+This plot shows an interesting result. The exepcted trend should be a decreasing percentage of linear strong scaling efficiency because of the communication overhead for work partitioning and partial results gathering. However, the percentage of linear scaling efficiency is not always decreasing for every number of processing elements. They have points in which the efficiency is higher whith more processors than with less processors. These particular points show how in some cases the benefit gain from the addition of more workers is more relevant than the collaboration and communication overhead, resulting then in a higher scaling efficiency.
 <br><br>
 
 ### Weak scalability
 
 In this case the problem size (workload) assigned to each processing element stays constant and additional elements are used to solve a larger total problem.  In the case of weak scaling, linear scaling is achieved if the run time stays constant while the workload is increased in direct proportion to the number of processors.
+For this test the workload assigned to a single processing element is A: 512x512, B: 512x512
 
-1. Weak scaling:<br>
-![image](https://drive.google.com/uc?export=view&id=1sJhACQfKuRMDPP4MNwzZvQ29LWSwDlI2)
-The workload assigned to a single processing element is A: 512 x 512, B: 512 x 5012
-
-2. Weak scaling efficiency: <br>
+Weak scaling efficiency: <br>
 If the amount of time to complete a work unit with 1 processing element is t1, and the amount of time to complete N of the same work units with N processing elements is tN, the weak scaling efficiency (as a percentage of linear) is given as: **( t1 / tN ) * 100%**
 
-![image](https://drive.google.com/uc?export=view&id=1sJhACQfKuRMDPP4MNwzZvQ29LWSwDlI2)
+![image](https://drive.google.com/uc?export=view&id=183GbtT0zwll_QKryHajML_HxAMD-oFJL)
 
+The plot clearly shows that the percentage of linear scaling efficiency is low, the maximum value is reached with 2 processing units and after it quickly decreases under 10% going even further until the last point which has a percentage near to zero. With the inputs tested, this algorithm shows a poor weak scaling efficiency.
 <br><br>
 
 

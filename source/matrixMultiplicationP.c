@@ -125,13 +125,13 @@ int main(int argc, char* argv[]) {
         }
     }
     
-    for(int i = 0; i < rowsB; i++){                         /*Reading matrix B from file*/
+    for(int i = 0; i < rowsB; i++){                /*Reading matrix B from file*/
         for(int j = 0; j < colsB; j++)
             fscanf(inFile, " %d", &matrixB[i][j]);   
     }
 
     int *sendBuf = multiplyMatricesretVect(partMatrixA, matrixB, rows, colsA, rowsB, colsB, offset, elements);   /*Buffer used to store computed values to send to MASTER*/ 
-    int *recvGatBuf = malloc(sizeof(int) * elements * tasksNum);
+    int *recvGatBuf = malloc(sizeof(int) * elements * tasksNum); /*Buffer used to gather all partial results from all workers*/
     int recvCounts[tasksNum];
     int displs[tasksNum];
     displs[0] = 0;
