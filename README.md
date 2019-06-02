@@ -112,7 +112,7 @@ If the amount of time to complete a work unit with 1 processing element is t1, a
 
 ![image](https://drive.google.com/uc?export=view&id=1bsAtebFxPt5-fQUQ058N6CW3h1f9APRN)
 
-This plot shows an interesting result. The exepcted trend should be a decreasing percentage of linear strong scaling efficiency because of the communication overhead for work partitioning and partial results gathering. However, the percentage of linear scaling efficiency is not always decreasing for every number of processing elements. They have points in which the efficiency is higher whith more processors than with less processors. These particular points show how in some cases the benefit gain from the addition of more workers is more relevant than the collaboration and communication overhead, resulting then in a higher scaling efficiency.
+This plot shows an interesting result. The expected trend should be a decreasing percentage of linear strong scaling efficiency because of the communication overhead for work partitioning and partial results gathering. However, the percentage of linear scaling efficiency is not always decreasing for every number of processing elements. They have points in which the efficiency is higher whith more processors than with less processors. These particular points show how in some cases the benefit gain from the addition of more workers is more relevant than the collaboration and communication overhead, resulting then in a higher scaling efficiency.
 <br><br>
 
 ### Weak scalability
