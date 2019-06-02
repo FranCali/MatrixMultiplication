@@ -78,14 +78,14 @@ Pass the four parameters to generate matrices A and B of the desired size
 
 ## Methodology
 The tests were performed on an omogeneous AWS cluster composed by 8 [m4.xlarge](https://aws.amazon.com/ec2/instance-types/) instances.<br>
-In order to evaluate the parallel algorithm, three parameters were considered: [speedup](#speedup), [strong scalability](#strong-scalability) and [weak scalability](#weak-scalability).<br>
+In order to evaluate the parallel algorithm, three metrics were considered: [speedup](#speedup), [strong scalability](#strong-scalability) and [weak scalability](#weak-scalability).<br>
 All test inputs and timings can be found [here](benchmarks.txt).
 
 ### Speedup
 
 The speedup is a measure that captures the relative benefit of solving a problem in parallel. It is defined as the ratio of the time taken to solve a problem on a single processing element to the time required to solve the same problem on a parallel computer/computing system with p identical processing elements.
 Given an input I of size n, the time of the sequential solution on input I is denoted as T(1,n) and the time of the parallel solution on input I is denoted as T(p,n)
-The relative speedup is **S(p,n)=T(1,n)T(p,n)**
+The relative speedup is **S(p,n)=T(1,n)/T(p,n)**
 <br>
 Biggest experiment in terms of processing units:
 <br>
@@ -108,8 +108,7 @@ In this case the problem size stays fixed but the number of processing elements 
 2. Strong scaling efficiency: <br>
 If the amount of time to complete a work unit with 1 processing element is t1, and the amount of time to complete the same unit of work with N processing elements is tN, the strong scaling efficiency (as a percentage of linear) is given as: **t1 / ( N * tN ) * 100%**
 
-The following chart is the result of the average operation performed over 10 strong scalability tests with 10 different inputs<br>
-
+The following chart is the result of the average operation performed over 6 strong scalability tests with 6 different inputs. Each test consists of testing the same input with different numbers of processing units, in this case from 1 to 16 <br>
 
 ![image](https://drive.google.com/uc?export=view&id=1sJhACQfKuRMDPP4MNwzZvQ29LWSwDlI2)
 <br><br>
@@ -120,7 +119,7 @@ In this case the problem size (workload) assigned to each processing element sta
 
 1. Weak scaling:<br>
 ![image](https://drive.google.com/uc?export=view&id=1sJhACQfKuRMDPP4MNwzZvQ29LWSwDlI2)
-
+The workload assigned to a single processing element is A: 512 x 512, B: 512 x 5012
 
 2. Weak scaling efficiency: <br>
 If the amount of time to complete a work unit with 1 processing element is t1, and the amount of time to complete N of the same work units with N processing elements is tN, the weak scaling efficiency (as a percentage of linear) is given as: **( t1 / tN ) * 100%**
@@ -134,7 +133,7 @@ If the amount of time to complete a work unit with 1 processing element is t1, a
 
 Here is the explanation of some coding design decisions made and the reasons why they were made:
 * The input matrices values are in the range 0-255: the first choice was to allow matrices values to range from 0 to the max representable integer value INT_MAX. However, the multiplication and addition operations involved between matrices elements led to both integer overflow and long overflow when input matrices' sizes increased within the test cases.
-* MPI_Ssend is used as Open MPI point-to-point communication routine: point-to-point communication works better in this parallel solution because workers can receive their workload immediately after it's been computed by the master node, otherwise, with collective communication routines, workers have to wait until the master node terminates to parse the input file and then receive their workload.
+* MPI_Ssend is used as Open MPI point-to-point communication routine: point-to-point communication works better in this parallel solution because workers can receive their workload immediately after it's been computed by the master node, otherwise, with collective communication routines, workers have to wait until the master node terminates to parse the input file and then receive their workload. Furthermore, the need of using the synchronous send is because other types of send routines cause some buffer-related issues when increasing the input. 
 
 
 ## Built With
