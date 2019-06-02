@@ -131,7 +131,7 @@ The plot clearly shows that the percentage of linear scaling efficiency is low, 
 
 ## Coding decisions
 
-Here is the explanation of some coding design decisions made and the reasons why they were made:
+Here is the explanation of some coding design decisions and the reasons why they were applied:
 * The input matrices values are in the range 0-255: the first choice was to allow matrices values to range from 0 to the max representable integer value INT_MAX. However, the multiplication and addition operations involved between matrices elements led to both integer overflow and long overflow when input matrices' sizes increased within the test cases.
 * MPI_Ssend is used as Open MPI point-to-point communication routine: point-to-point communication works better in this parallel solution because workers can receive their workload immediately after it's been computed by the master node, otherwise, with collective communication routines, workers have to wait until the master node terminates to parse the input file and then receive their workload. Furthermore, the need of using the synchronous send is because other types of send routines cause some buffer-related issues when increasing the input. 
 
