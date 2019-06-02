@@ -36,7 +36,7 @@ Execute the following steps in order to have a fully running program:<br>
 
 1. Compile the file *writeMatrix.c* with the following command:
 ```
-gcc source/writeMatrix.c matrixOps.c -o bin/writeMatrix
+gcc source/writeMatrix.c source/matrixOps.c -o bin/writeMatrix
 ```
 2. Compile the file *matrixMultiplicationS.c* with the following command:
 ```
