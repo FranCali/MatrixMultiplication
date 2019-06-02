@@ -21,10 +21,10 @@ int main(int argc, char* argv[]){
         exit(EXIT_FAILURE);
     }
 
-    const int rowsA = atoi(argv[1]);//Number of rows matrix a
-    const int colsA = atoi(argv[2]);//Number of columns matrix a
-    const int rowsB = atoi(argv[3]);//Number of rows matrix b
-    const int colsB = atoi(argv[4]);//Number of columns matrix b
+    const int rowsA = atoi(argv[1]);
+    const int colsA = atoi(argv[2]);
+    const int rowsB = atoi(argv[3]);
+    const int colsB = atoi(argv[4]);
 
     printf("Writing two matrices on file \"%s\"...\n", FILE_NAME);
     printf("Matrix A: %d rows %d columns\n", rowsA, colsA);
@@ -36,7 +36,7 @@ int main(int argc, char* argv[]){
 
     struct stat st = {0};
 
-    if(stat("/some/directory", &st) == -1){//Create the test directory if not exists
+    if(stat("../test/", &st) == -1){    /*Create the test directory if not exists*/
         mkdir(pathname, 0700);
     }
     
