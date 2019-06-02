@@ -44,7 +44,7 @@ gcc source/matrixMultiplicationS.c source/matrixOps.c -o bin/seq
 ```
 3. Compile the file *matrixMultiplicationP.c* with the following command:
 ```
-gcc source/matrixMultiplicationP.c source/matrixOps.c -o bin/par
+mpicc source/matrixMultiplicationP.c source/matrixOps.c -o bin/par
 ```
 
 ### Execution
