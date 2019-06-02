@@ -84,7 +84,7 @@ All test inputs and timings can be found [here](benchmarks.txt).
 ### Speedup
 
 The speedup is a measure that captures the relative benefit of solving a problem in parallel. It is defined as the ratio of the time taken to solve a problem on a single processing element to the time required to solve the same problem on a parallel computer/computing system with p identical processing elements.
-Given an input I of size n, the time of the sequential solution on input I is denoted as T(1,n) and the time of the parallel solution on input I is denoted as T(p,n)
+Given an input I of size n, the time of the sequential solution on input I is denoted as T(1,n) and the time of the parallel solution on input I is denoted as T(p,n).
 The relative speedup is **S(p,n)=T(1,n)/T(p,n)**
 <br>
 Biggest experiment in terms of processing units and input size:
