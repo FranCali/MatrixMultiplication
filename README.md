@@ -60,7 +60,7 @@ Pass the four parameters to generate matrices A and B of the desired size
 2. At this point you can:
     * Execute the sequential program with the following command:
     ```
-    ./seq [rows A] [columns A] [rows B] [columns B]
+    ./seq
     ```
     OR
     * Execute the parallel program on local machine with the following command:
