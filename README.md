@@ -92,7 +92,7 @@ Biggest experiment in terms of processing units and input size:
 
 ![image](https://drive.google.com/uc?export=view&id=1n4-OIQvCUhPmdbIdRAPYfk3J_2XxJnPH)
 
-The results show how the best speedup rate is reached at 12 processors. The trend is an almost linear growing of the speedup, however it's clearly visible how the increasing number of processing elements affects the speedup because of the communication overhead between processors for work partitioning and partial results gathering. As the number of processors increases, it is further from the speedup upperbound which corresponds to the number of processors in that phase.
+The results show how the highest speedup rate is 12. The trend is an almost linear growing of the speedup, however it's clearly visible how the increasing number of processing elements affects the speedup because of the communication overhead between processors for work partitioning and partial results gathering. As the number of processors increases, it is further from the speedup upperbound which corresponds to the number of processors in that phase.
 <br><br>
 
 ### Strong scalability
